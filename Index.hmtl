@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>غدير جهاد الكعابنه | مرشدة نفسية وتربوية</title>
+    
+    <!-- استدعاء خط Cairo و Tajawal من جوجل -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- مكتبة الأيقونات (FontAwesome) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* 
+        ========================================
+        1. المتغيرات والألوان (CSS Variables)
+        ========================================
+        */
+        :root {
+            --primary-color: #8e44ad; /* نهدي */
+            --secondary-color: #ffb7b2; /* زهري فاتح */
+            --accent-color: #ff9ff3; /* لون تفاعلي */
+            --bg-color: #fdf2f8; /* خلفية فاتحة جداً */
+            --white: #ffffff;
+            --text-color: #2c3e50;
+            --soft-shadow: 0 10px 30px rgba(142, 68, 173, 0.1);
+            --transition: all 0.4s ease;
+        }
+
+        /* 
+        ========================================
+        2. التنسيقات العامة (Global Styles)
+        ========================================
+        */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            outline: none;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* تنسيق شريط التمرير */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #fff;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-color);
+            border-radius: 5px;
+        }
+
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 50px;
+            position: relative;
+            font-weight: 700;
+        }
+        
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: var(--secondary-color);
+            margin: 10px auto;
+            border-radius: 2px;
+        }
+
+        /* كلاس للحركة عند السكرول */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: var(--transition);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* 
+        ========================================
+        3. الهيدر والقائمة (Header & Nav)
+        ========================================
+        */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 5%;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--secondary-color);
+        }
+
+        /* 
+        ========================================
+        4. الصفحة الرئيسية (Hero Section)
+        ========================================
+        */
+        .hero {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            min-height: 90vh;
+            text-align: center;
+            padding: 50px 20px;
+            background: linear-gradient(135deg, #fff0f5 0%, #fff 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* خلفية متحركة خفيفة */
+        .blob {
+            position: absolute;
+            background: var(--secondary-color);
+            border-radius: 50%;
+            opacity: 0.2;
+            filter: blur(40px);
+            animation: float 6s infinite ease-in-out;
+            z-index: 0;
+        }
+        .blob:nth-child(1) { width: 300px; height: 300px; top: -50px; left: -50px; }
+        .blob:nth-child(2) { width: 200px; height: 200px; bottom: 50px; right: -50px; background: var(--primary-color); animation-delay: 2s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(20px); }
+        }
+
+        .hero-content {
+            flex: 1;
+            min-width: 300px;
+            z-index: 1;
+            padding: 20px;
+        }
+
+        .hero-image {
+            flex: 1;
+            min-width: 300px;
+            display: flex;
+            justify-content: center;
+            z-index: 1;
+        }
+
+        .hero-image img {
+            width: 350px;
+            height: 350px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 8px solid var(--white);
+            box-shadow: var(--soft-shadow);
+            animation: morph 5s ease-in-out infinite;
+        }
+
+        @keyframes morph {
+            0% { border-radius: 60% 40% 30% 70%/60% 30% 70% 40%; }
+            50% { border-radius: 30% 60% 70% 40%/50% 60% 30% 60%; }
+            100% { border-radius: 60% 40% 30% 70%/60% 30% 70% 40%; }
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .hero h3 {
+            font-size: 1.5rem;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        .btn-main {
+            display: inline-block;
+            padding: 12px 30px;
+            background: var(--primary-color);
+            color: var(--white);
+            border-radius: 30px;
+            font-weight: bold;
+            transition: var(--transition);
+            box-shadow: 0 5px 15px rgba(142, 68, 173, 0.3);
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-main:hover {
+            background: var(--secondary-color);
+            transform: translateY(-3px);
+            color: var(--primary-color);
+        }
+
+        /* 
+        ========================================
+        5. نبذة عني والإحصائيات (About & Stats)
+        ========================================
+        */
+        .about-section {
+            background: var(--white);
+            padding: 80px 0;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            align-items: center;
+        }
+
+        .about-text p {
+            font-size: 1.1rem;
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.8;
+            background: #fffafa;
+            padding: 20px;
+            border-radius: 15px;
+            border-right: 5px solid var(--secondary-color);
+        }
+
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .stat-card {
+            background: var(--bg-color);
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: var(--transition);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px);
+            background: var(--white);
+            border: 1px solid var(--secondary-color);
+        }
+
+        .stat-card i {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .stat-number {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--text-color);
+        }
+
+        /* 
+        ========================================
+        6. ما يميزني (Features)
+        ========================================
+        */
+        .features-section {
+            padding: 80px 0;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .feature-item {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            transition: var(--transition);
+            border-bottom: 4px solid transparent;
+        }
+
+        .feature-item:hover {
+            border-bottom: 4px solid var(--primary-color);
+            box-shadow: var(--soft-shadow);
+        }
+
+        .feature-item i {
+            color: var(--secondary-color);
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        /* 
+        ========================================
+        7. المواضيع (Topics)
+        ========================================
+        */
+        .topics-section {
+            background: #fff;
+            padding: 80px 0;
+        }
+
+        .topic-cards {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 25px;
+        }
+
+        .topic-card {
+            width: 280px;
+            background: var(--bg-color);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .topic-card:hover {
+            transform: scale(1.05);
+        }
+
+        .topic-icon-area {
+            height: 120px;
+            background: var(--secondary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .topic-icon-area i {
+            font-size: 3rem;
+            color: #fff;
+        }
+
+        .topic-content {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .topic-content h4 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        /* 
+        ========================================
+        8. قسم اللعبة (Game Section)
+        ========================================
+        */
+        .game-section {
+            padding: 60px 0;
+            background: linear-gradient(to top, #f3e7e9 0%, #e3eeff 99%, #e3eeff 100%);
+            text-align: center;
+        }
+        
+        .game-container {
+            width: 100%;
+            max-width: 600px;
+            height: 400px;
+            background: #fff;
+            margin: 20px auto;
+            border-radius: 20px;
+            border: 4px solid var(--primary-color);
+            position: relative;
+            overflow: hidden;
+            cursor: crosshair;
+            box-shadow: var(--soft-shadow);
+        }
+
+        .bubble {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.8), rgba(255,255,255,0));
+            box-shadow: inset 0 0 20px rgba(255,255,255,0.5), 0 5px 10px rgba(0,0,0,0.1);
+            animation: floatUp 4s linear forwards;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: #fff;
+            font-weight: bold;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(400px); opacity: 0; }
+            10% { opacity: 1; }
+            100% { transform: translateY(-100px); opacity: 0; }
+        }
+
+        .score-board {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .start-btn {
+            padding: 10px 25px;
+            background: var(--accent-color);
+            color: #fff;
+            border: none;
+            border-radius: 20px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .start-btn:hover { background: var(--primary-color); }
+
+        /* 
+        ========================================
+        9. المهارات (Skills)
+        ========================================
+        */
+        .skills-section {
+            padding: 80px 0;
+            background: var(--white);
+        }
+        
+        .skill-box {
+            margin-bottom: 20px;
+        }
+        
+        .skill-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: var(--text-color);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 12px;
+            background: #eee;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress {
+            height: 100%;
+            background: linear-gradient(90deg, var(--secondary-color), var(--primary-color));
+            width: 0;
+            border-radius: 10px;
+            transition: width 1.5s ease-in-out;
+        }
+
+        /* 
+        ========================================
+        10. التواصل (Contact) - 3D Effect
+        ========================================
+        */
+        .contact-section {
+            padding: 80px 0;
+            perspective: 1000px;
+            margin-bottom: 50px;
+        }
+
+        .contact-card-3d {
+            background: var(--white);
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 40px;
+            border-radius: 30px;
+            text-align: center;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+            transform-style: preserve-3d;
+            transition: transform 0.5s;
+            border: 1px solid rgba(255,255,255,0.5);
+        }
+
+        .contact-card-3d:hover {
+            transform: rotateX(5deg) translateY(-10px);
+            box-shadow: 0 30px 60px rgba(142, 68, 173, 0.2);
+        }
+
+        .contact-info-item {
+            margin: 20px 0;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            color: #555;
+        }
+
+        .contact-info-item i {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            width: 40px;
+            height: 40px;
+            background: #f3e5f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+
+        .copy-btn {
+            background: none;
+            border: 1px solid var(--secondary-color);
+            color: var(--primary-color);
+            padding: 5px 15px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: 0.3s;
+        }
+        .copy-btn:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary-color);
+            color: var(--white);
+            text-align: center;
+            padding: 20px;
+            font-size: 0.9rem;
+        }
+
+        /* Back to top */
+        #backToTop {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--secondary-color);
+            color: white;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            pointer-events: none;
+            transition: 0.3s;
+            box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+            z-index: 999;
+        }
+        #backToTop.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(44, 62, 80, 0.9);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 20px;
+            opacity: 0;
+            pointer-events: none;
+            transition: 0.3s;
+            z-index: 2000;
+        }
+        .toast.show { opacity: 1; bottom: 50px; }
+
+        /* Responsive Mobile */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2rem; }
+            .hero-image img { width: 250px; height: 250px; }
+            .nav-links { display: none; } /* يمكن تحويلها لقائمة منسدلة لاحقاً */
+        }
+    </style>
+</head>
+<body>
+
+    <!-- زر الصعود للأعلى -->
+    <div id="backToTop"><i class="fas fa-arrow-up"></i></div>
+    
+    <!-- رسالة التنبيه عند النسخ -->
+    <div class="toast" id="toast">تم النسخ بنجاح! ✨</div>
+
+    <!-- شريط التنقل -->
+    <nav>
+        <div class="logo">غدير الكعابنه 🌸</div>
+        <div class="nav-links">
+            <a href="#home">الرئيسية</a>
+            <a href="#about">من أنا</a>
+            <a href="#topics">مواضيع</a>
+            <a href="#game">العب معنا</a>
+            <a href="#contact">تواصل معي</a>
+        </div>
+    </nav>
+
+    <!-- الصفحة الرئيسية -->
+    <header id="home" class="hero">
+        <div class="blob"></div>
+        <div class="blob"></div>
+        
+        <div class="hero-image reveal">
+            <!-- الصورة الشخصية -->
+            <img src="https://www2.0zz0.com/2025/12/14/13/477790801.jpg" alt="غدير جهاد الكعابنه">
+        </div>
+        
+        <div class="hero-content reveal">
+            <h3>أهلاً بكم، أنا</h3>
+            <h1>غدير جهاد الكعابنه</h1>
+            <h3>مرشدة نفسية وتربوية</h3>
+            <p style="margin-bottom: 20px; color: #777;">أسعى لصناعة جيل واعي ومستقر نفسياً من خلال دمج الإرشاد بالتقنية بأسلوب طفولي ممتع.</p>
+            <button class="btn-main" onclick="document.getElementById('contact').scrollIntoView()">تواصل معي</button>
+        </div>
+    </header>
+
+    <!-- من أنا -->
+    <section id="about" class="about-section">
+        <div class="container">
+            <h2 class="section-title reveal">نبذة تعريفية</h2>
+            <div class="about-grid">
+                <div class="about-text reveal">
+                    <p>
+                        أنا غدير جهاد الكعابنه، مرشدة نفسية وتربوية من محافظة الزرقاء. طالبة بكالوريوس في الجامعة الهاشمية، شغوفة ومتعلمة بسرعة. أمتلك خبرة مميزة في التعامل والتفاعل مع الأطفال، بالإضافة إلى مهارات تقنية في العمل على الكمبيوتر ودمجها مع الإرشاد النفسي.
+                    </p>
+                </div>
+                <div class="stats-container reveal">
+                    <div class="stat-card">
+                        <i class="fas fa-graduation-cap"></i>
+                        <div class="stat-number">الجامعة الهاشمية</div>
+                        <div>إرشاد نفسي وتربوي</div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-birthday-cake"></i>
+                        <div class="stat-number">23</div>
+                        <div>سنة</div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-brain"></i>
+                        <div class="stat-number">+1</div>
+                        <div>سنوات ا
